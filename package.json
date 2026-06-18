@@ -1,0 +1,21 @@
+{
+  "name": "ai-agent-hw3-fruit-rag",
+  "version": "1.0.0",
+  "description": "AI Agent 作業 3：迷你水果知識庫（RAG + Qdrant）",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "init": "node scripts/embed-fruits.js",
+    "start": "node main.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.4.3",
+    "@qdrant/js-client-rest": "^1.18.0",
+    "dotenv": "^17.4.2",
+    "openai": "^6.38.0",
+    "ora": "^9.4.0"
+  }
+}
