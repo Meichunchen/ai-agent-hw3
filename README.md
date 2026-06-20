@@ -1,57 +1,5 @@
 # 作業 3：迷你水果知識庫（RAG + Qdrant）
 
-> AI Agent 實作工作坊（JavaScript 版）— 作業 3
-> 用 OpenAI Embeddings + Qdrant 向量資料庫，建立 5 筆台灣水果的迷你知識庫並測試語意搜尋
-
-## 知識庫內容
-
-5 筆台灣水果資料（見 [`data/fruits.js`](./data/fruits.js)）：
-
-| # | 名稱 | 主要產地 | 盛產季節 |
-|---|---|---|---|
-| 1 | 芒果 | 台南玉井、屏東枋山、高雄六龜 | 5–9 月 |
-| 2 | 鳳梨 | 屏東、嘉義、台南關廟 | 3–7 月 |
-| 3 | 釋迦 | 台東 | 7 月至隔年 2 月 |
-| 4 | 蓮霧 | 屏東、高雄、宜蘭 | 12 月至隔年 5 月 |
-| 5 | 芭樂 | 高雄燕巢、彰化社頭、台南 | 全年（8–11 月盛產） |
-
-每筆包含：名稱、產地、季節、品種、特色描述（約 80–120 字）。
-
-## 技術組成
-
-| 元件 | 角色 |
-|---|---|
-| `text-embedding-3-small` (OpenAI) | 把文字轉成 1536 維的向量 |
-| Qdrant Cloud (Free Tier) | 儲存向量、做相似度搜尋 |
-| Cosine distance | 相似度度量（值越大越相關） |
-
-## 環境需求
-
-- Node.js >= 22
-- OpenAI API key
-- Qdrant Cloud cluster（免費註冊：https://cloud.qdrant.io）
-
-## 安裝與執行
-
-```powershell
-# 1. 安裝套件
-npm install
-
-# 2. 設定 .env（從 .env.example 複製,填入 3 個值）
-Copy-Item .env.example .env
-notepad .env
-# 填入:
-#   OPENAI_API_KEY=sk-...
-#   QDRANT_URL=https://<cluster-id>.gcp.cloud.qdrant.io:6333
-#   QDRANT_API_KEY=eyJ...
-
-# 3. 初始化:把 5 筆水果 embed 後存進 Qdrant
-npm run init
-
-# 4. 互動式搜尋
-npm start
-```
-
 ## 檔案結構
 
 ```
@@ -113,18 +61,6 @@ export async function searchFruits(query, limit = 5) {
   return results.map(r => ({ score: r.score, ...r.payload }));
 }
 ```
-
----
-
-## 驗收標準對照
-
-| 項目 | 達成狀況 |
-|---|---|
-| 知識庫包含 5 筆以上資料 | ✅ 共 5 筆水果（芒果、鳳梨、釋迦、蓮霧、芭樂） |
-| 執行搜尋測試程式能搜尋到相關結果 | ✅ 見下方 3 個實測查詢，每個查詢都回傳 5 筆按相似度排序的結果 |
-| README 附 3 個查詢的對應搜尋結果（含相似度分數） | ✅ 見下方完整紀錄 |
-
----
 
 ## 實測搜尋紀錄
 
